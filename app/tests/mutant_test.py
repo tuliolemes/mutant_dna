@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
-from app.endpoints.mutant import check_dna, check_horizontal_genes, check_vertical_genes, check_diagonal_genes, \
-    check_reversed_diagonal_genes, router, parse_list
+from app.endpoints.mutant import check_horizontal_genes, check_vertical_genes, check_diagonal_genes, \
+    check_reversed_diagonal_genes, router
 
 
 client = TestClient(router)
