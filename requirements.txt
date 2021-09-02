@@ -1,6 +1,8 @@
-coverage==5.5
 fastapi==0.68.1
 mangum==0.12.2
+pydantic
 pytest==6.2.5
+coverage==5.5
 uvicorn==0.15.0
-it
+sqlalchemy
+psycopg2-binary
