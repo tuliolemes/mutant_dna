@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Mutant AWS Lambda
+Resources:
+    MutantLambda:
+        Type: AWS::Serverless::Function
+        Properties:
+            Events:
+                ApiEvent:
+                    Properties:
+                        RestApiId:
+                            Ref: FastApiGateway
+                        Path: /{proxy+}
+                        Method: ANY
+                    Type: Api
+            FunctionName: fastapi-lambda
+            CodeUri: ./
+            Handler: app.main.handler
+            Runtime: python3.7
+            Timeout: 300 # timeout of your lambda function
+            MemorySize: 128 # memory size of your lambda function
+            Description: FastAPI AWS Lambda
+            # other options, see ->
+            # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html#sam-specification-template-anatomy-globals-supported-resources-and-properties
+            Role: !Sub arn:aws:iam::677564895097:role/mutantrole
+            VpcConfig:
+                SecurityGroupIds:
+                - sg-bfdf9af5
+                SubnetIds:
+                - subnet-9cdcead0
+                - subnet-55c1513e
+                - subnet-90c30ded
+            Environment:
+                Variables:
+                    DB_USER: flieber
+                    DB_PASS: mutantarmy
+                    DB_HOST: magnetoarmy.cideqlu2j2t1.us-east-2.rds.amazonaws.com
+                    DB_PORT: 5432
+                    DB_NAME: magnetoarmy
+    FastApiGateway:
+        Type: AWS::Serverless::Api
+        Properties:
+            StageName: dev
+            OpenApiVersion: '3.0.0'

@@ -1,11 +1,9 @@
-from fastapi import APIRouter, HTTPException, Depends, Query
-from endpoints.utils import parse_list, check_horizontal_genes, check_vertical_genes, check_diagonal_genes, \
+from fastapi import APIRouter, HTTPException, Depends
+from app.endpoints.utils import parse_list, check_horizontal_genes, check_vertical_genes, check_diagonal_genes, \
     check_reversed_diagonal_genes
 from sqlalchemy.orm import Session
-from typing import List, Optional
-
-from models import crud, models, schemas
-from models.database import SessionLocal, engine
+from app.models import crud, models, schemas
+from app.models.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -41,23 +39,6 @@ def create_dna(dna=Depends(parse_list), db: Session = Depends(get_db)):
             raise HTTPException(status_code=403, detail="You are not a mutant and will be destroyed")
 
 
-@router.get("/mutant")
-def read_dna(dna=Depends(parse_list), db: Session = Depends(get_db)):
-    sequence_as_string = '[' + ','.join(str(e) for e in dna) + ']'
-    db_dna = crud.get_dna_by_sequence(db, sequence=sequence_as_string)
-    if db_dna is None:
-        raise HTTPException(status_code=404, detail="Dna not found")
-    return True
-
-
-@router.get("/stats")
-def read_dna(db: Session = Depends(get_db)):
-    count_mutant_dna = crud.count_mutant_dna(db)
-    count_human_dna = crud.count_human_dna(db)
-    ratio = count_mutant_dna/(count_human_dna+count_mutant_dna)
-    return {"count_mutant_dna": count_mutant_dna, "count_human_dna": count_human_dna, "ratio": round(ratio,2)}
-
-
 def check_dna(dna=Depends(parse_list)):
     mutant_gene = 0
 
@@ -70,5 +51,3 @@ def check_dna(dna=Depends(parse_list)):
         return True
     else:
         return False
-        # raise HTTPException(status_code=403, detail="You are not a mutant and will be destroyed!")
-

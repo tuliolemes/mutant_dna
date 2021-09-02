@@ -12,9 +12,7 @@ def create_dna(db: Session, dna: schemas.Dna):
 
 
 def get_dna_by_sequence(db: Session, sequence: List[str]):
-    #return db.query(models.Dna).filter(models.Dna.sequence in sequence).first()
     return db.query(models.Dna).filter(models.Dna.sequence == sequence).first()
-    # return db.query(models.Dna).filter(models.Dna.sequence.in_(sequence)).first()
 
 
 def count_human_dna(db: Session):
