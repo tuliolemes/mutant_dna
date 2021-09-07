@@ -5,7 +5,7 @@ from app.endpoints.stats import router as stats_router
 
 app = FastAPI(
     title="magneto's mutant army",
-    root_path="/dev"
+    # root_path="/dev"
 )
 
 

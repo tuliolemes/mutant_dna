@@ -1,5 +1,6 @@
 # mutant_dna
-This is an application that reads a DNA sequence and identifies if it is human or mutant, so magneto can select its followers.
+This is a FastAPI application. 
+I used SQLAlchemy ORM, Docker and Cloudformation (SAM) to create a structure in AWS (PostgreSQL, API Gateway and Lambda) and solve the problem below. 
 
 ## Synopsis
 ```
@@ -72,13 +73,7 @@ efficiently as possible
 Make sure you have installed:
 * Python
 * PostgreSQL
-```
-```
-Create a local table:
-CREATE TABLE dna (
-	sequence text[] PRIMARY KEY UNIQUE NOT NULL,
-	is_mutant bool NOT NULL
-);
+* Docker
 ```
 ```
 Change the dbconnection at database.py:
@@ -98,7 +93,7 @@ docker run -d --name mutant-container -p 8000:8000 mutant-image
 Open the browser at http://127.0.0.1:8000/docs#/default
 ```
 
-## Clone project and test locally
+## Local endpoints
 ```
 /stats [GET]
 /mutants [POST]
@@ -114,5 +109,4 @@ https://7o0dchybgl.execute-api.us-east-2.amazonaws.com/dev/api/v1/stats [GET]
 ```
 - stress tests
 - introduce AWS SQS to decouple the application (APIs calls and DB connection)
- 
 ```
