@@ -99,8 +99,9 @@ Open the browser at http://127.0.0.1:8000/docs#/default
 /mutants [POST]
 ```
 
-## Or try the endpoints above:
+## [Inactivated] Or try the endpoints above:
 ```
+Due to the expiration of my free trial on AWS, endpoints have been disabled.
 https://7o0dchybgl.execute-api.us-east-2.amazonaws.com/dev/api/v1/mutant?dna=["ABCDEF", "GHIJKL", "SDSADS", "STUVXZ", "ZZZZZZ", "AAAAAA"] [POST]
 https://7o0dchybgl.execute-api.us-east-2.amazonaws.com/dev/api/v1/stats [GET]
 ```
